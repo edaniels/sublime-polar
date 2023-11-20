@@ -16,12 +16,12 @@ contexts:
 
   comment:
     - match: '#.*'
-      scope: comment.line.number-sign
+      scope: comment.line.number-sign.polar
 
   rule:
     - include: rule-functor
     - match: \bif\b
-      scope: keyword.control.if
+      scope: keyword.control.if.polar
       push:
         - include: term
         - match: ;
@@ -35,7 +35,7 @@ contexts:
       push:
         - include: specializer
         - match: \,
-          scope: punctuation.separator.sequence.list
+          scope: punctuation.separator.sequence.list.polar
         - include: term
         - match: \)
           pop: true
@@ -50,14 +50,14 @@ contexts:
       captures:
         1: keyword.other.type-decl
       push:
-        - meta_scope: meta.rule-type
+        - meta_scope: meta.rule-type.polar
         - include: rule-functor
         - match: ;
           pop: true
 
   inline-query:
     - match: \?=
-      scope: meta.inline-query
+      scope: meta.inline-query.polar
       captures:
         1: keyword.control
       push:
@@ -72,16 +72,16 @@ contexts:
         3: entity.name.type
         4: keyword.control
       push:
-        - meta_scope: meta.resource-block
+        - meta_scope: meta.resource-block.polar
         - match: ;
-          scope: punctuation.separator.sequence.declarations
+          scope: punctuation.separator.sequence.declarations.polar
         - match: \{
           push:
-            - meta_scope: meta.relation-declaration
+            - meta_scope: meta.relation-declaration.polar
             - include: specializer
             - include: comment
             - match: \,
-              scope: punctuation.separator.sequence.dict
+              scope: punctuation.separator.sequence.dict.polar
             - match: \}
               pop: true
         - include: term
@@ -94,19 +94,19 @@ contexts:
         1: keyword.control
         2: string.quoted.double
       push:
-        - meta_scope: meta.test-block
+        - meta_scope: meta.test-block.polar
         - match: (setup)\s*\{
           captures:
             1: keyword.control
           push:
-            - meta_scope: meta.test-setup
+            - meta_scope: meta.test-setup.polar
             - include: rule
             - include: comment
             - match: \}
               pop: true
         - include: rule
         - match: \b(assert|assert_not)\b
-          scope: keyword.other
+          scope: keyword.other.polar
         - include: comment
         - match: \}
           pop: true
@@ -121,57 +121,57 @@ contexts:
     - include: object-literal
     - match: \[
       push:
-        - meta_scope: meta.bracket.list
+        - meta_scope: meta.bracket.list.polar
         - include: term
         - match: \,
-          scope: punctuation.separator.sequence.list
+          scope: punctuation.separator.sequence.list.polar
         - match: \]
           pop: true
     - match: \{
       push:
-        - meta_scope: meta.bracket.dict
+        - meta_scope: meta.bracket.dict.polar
         - include: term
         - match: \,
-          scope: punctuation.separator.sequence.dict
+          scope: punctuation.separator.sequence.dict.polar
         - match: \}
           pop: true
     - match: \(
       push:
-        - meta_scope: meta.parens
+        - meta_scope: meta.parens.polar
         - include: term
         - match: \,
-          scope: punctuation.separator.sequence.list
+          scope: punctuation.separator.sequence.list.polar
         - match: \)
           pop: true
 
   string:
     - match: '"'
       push:
-        - meta_scope: string.quoted.double
+        - meta_scope: string.quoted.double.polar
         - match: \\.
-          scope: constant.character.escape
+          scope: constant.character.escape.polar
         - match: '"'
           pop: true
 
   number:
     - match: \b[+-]?\d+(?:(\.)\d+(?:e[+-]?\d+)?|(?:e[+-]?\d+))\b
-      scope: constant.numeric.float
+      scope: constant.numeric.float.polar
     - match: \b(\+|\-)[\d]+\b
-      scope: constant.numeric.integer
+      scope: constant.numeric.integer.polar
     - match: \b[\d]+\b
-      scope: constant.numeric.natural
+      scope: constant.numeric.natural.polar
 
   boolean:
     - match: \b(true|false)\b
-      scope: constant.language.boolean
+      scope: constant.language.boolean.polar
 
   keyword:
     - match: \b(cut|or|debug|print|in|forall|if|and|of|not|matches|type|on|global)\b
-      scope: constant.character
+      scope: constant.character.polar
 
   operator:
     - match: (\+|\-|\*|\/|<|>|=|!)
-      scope: keyword.control
+      scope: keyword.control.polar
 
   object-literal:
     - match: ([a-zA-Z_][a-zA-Z0-9_]*(?:::[a-zA-Z0-9_]+)*)\s*\{
@@ -183,6 +183,6 @@ contexts:
         - include: number
         - include: boolean
         - match: \}
-          scope: constant.other.object-literal
+          scope: constant.other.object-literal.polar
           pop: true
 
